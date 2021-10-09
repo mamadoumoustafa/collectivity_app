@@ -23,13 +23,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByUsername(String username) {
-        return userRepository.findByNom(username);
+        return userRepository.findByUsername(username);
     }
 
-    @Override
+/*    @Override
     public User findByMail(String mail) {
         return userRepository.findByEmailEqualsIgnoreCase(mail);
-    }
+    }*/
 
     @Override
     public User save(User user) {

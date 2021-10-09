@@ -98,7 +98,7 @@ public class AuthController {
 
 		//Verifier si un utilisateur avec le meme mail existe
 
-		if(Objects.isNull(userService.findByMail(user.getEmail()))){
+		if(Objects.isNull(userService.findByUsername(user.getUsername()))){
 			//On enregistre lutilisateur
 			user.setPassword(encoder.encode(user.getPassword()));
 			return ResponseEntity.ok(userService.save(user));

@@ -27,31 +27,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String prenom;
-    
-    private String nom;
-    
     @NotNull
-    @Size(min = 9,max = 9)
-    private String telephone;
-    
-    @NotNull
-    @Size(max = 9)
-    private Long numCartElec;
-    
-    @NotNull
-    @Size(max = 13)
-    private Long numCartCedeao;
-    
-    @NotNull
-    private String commune;
-
-    @NotNull @Email
-    private String email;
+    @Size(min = 5,max = 30)
+    private String username;
 
     @NotNull
     @Size(min = 5,max = 10)
     private String password;
+
+    private Boolean enabled = Boolean.FALSE;
+
 
     @OneToMany
     private List<Role> roles = new ArrayList<>();
