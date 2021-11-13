@@ -1,18 +1,31 @@
 package com.digitalexperts.authService.service;
 
+import com.digitalexperts.authService.bo.Account;
+import com.digitalexperts.authService.bo.Role;
+import com.digitalexperts.authService.service.exceptions.UserExceptions;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 
-import com.digitalexperts.authService.bo.User;
-import com.digitalexperts.authService.service.exceptions.UserExceptions;
 
 public interface UserService {
-	User findById(Long id);
-    User findByUsername(String username);
-    User findByMail(String mail);
-    User save(User user);
-	public void deleteUser(Long id) throws UserExceptions;
-	public User updateUser(User user);
-	public List<User> findAll();
 
+    Account saveAccount(Account pAccount);
+
+    Account findByUsername(String name);
+
+    Account findById(Long id) throws UserExceptions;
+
+    List<Account> findAccountsByRole(Role role);
+    Page<Account> findAccountsByRole(Role role, Pageable pageable);
+
+    void deleteAccount(Account pAccount);
+
+    Boolean existsByUsername(String username);
+
+    List<Account> findAll();
+    List<Account> saveAll(List<Account> accounts);
+    void deleteAll();
 
 }

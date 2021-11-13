@@ -91,7 +91,7 @@ public class AuthController {
 	  }
 */
 
-	@PostMapping("/signup")
+/*	@PostMapping("/signup")
 	public ResponseEntity<User> registerUser(@Valid @RequestBody User user) throws UserExceptions {
 
 		log.info("Registering user with infos : {}",user);
@@ -106,7 +106,7 @@ public class AuthController {
 
 		//cela veut dire kun utilisateur avec le mm usernamme existe
 		throw new  UserExceptions("Un utilisateur avec les meme infos existe déja",new Date());
-	}
+	}*/
 
 /*	@GetMapping("/roles")
 	public ResponseEntity<List<Role>> roles() {
