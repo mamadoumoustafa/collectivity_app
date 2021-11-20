@@ -60,8 +60,8 @@ public class AuthServiceApplication implements CommandLineRunner {
 		account.getRoles().add(roleService.findByName("Admin"));
 
 		//  log.info("saving ngor faye...");
-		if (Objects.isNull(userService.findByUsername("ngorfaye")))
-			userService.saveAccount(account);
+/*		if (Objects.isNull(userService.findByUsername("ngorfaye")))
+			userService.saveAccount(account);*/
 
 
 	}

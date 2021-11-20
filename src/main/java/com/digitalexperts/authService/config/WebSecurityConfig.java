@@ -1,6 +1,7 @@
 package com.digitalexperts.authService.config;
 
-import com.digitalexperts.authService.service.UserServiceImpl;
+import com.digitalexperts.authService.service.AccountService;
+import com.digitalexperts.authService.service.impl.AccountServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Autowired
-    private UserServiceImpl userDetailsService;
+    private AccountServiceImpl accountService;
 
     @Bean
     public AuthenticationManager getAuthenticationManager() throws Exception {
@@ -41,6 +42,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
+        auth.userDetailsService(accountService).passwordEncoder(passwordEncoder);
     }
 }

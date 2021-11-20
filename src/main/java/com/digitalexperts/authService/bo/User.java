@@ -27,9 +27,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotNull
     private String prenom;
-    
+
+    @NotNull
     private String nom;
+
+    @NotNull
+    private String sexe;
     
     @NotNull
     @Size(min = 9,max = 9)

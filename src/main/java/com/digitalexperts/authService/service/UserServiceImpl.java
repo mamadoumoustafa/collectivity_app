@@ -3,7 +3,9 @@ package com.digitalexperts.authService.service;
 
 import com.digitalexperts.authService.bo.Account;
 import com.digitalexperts.authService.bo.Role;
+import com.digitalexperts.authService.bo.User;
 import com.digitalexperts.authService.repository.UserJpaRepository;
+import com.digitalexperts.authService.repository.UserRepository;
 import com.digitalexperts.authService.service.exceptions.UserExceptions;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,85 +18,33 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl implements UserService {
 
-    private final UserJpaRepository userdao;
+    private final UserRepository userdao;
 
-    public UserServiceImpl(UserJpaRepository userdao) {
+    public UserServiceImpl(UserRepository userdao) {
         this.userdao = userdao;
     }
 
+
     @Override
-    public Account saveAccount(Account pAccount) {
-        return userdao.save(pAccount);
+    public User save(User user) throws Exception{
+        return userdao.save(user);
     }
 
     @Override
-    public Account findByUsername(String name) {
-        return userdao.findAccountByUsername(name);
-    }
-
-
-    @Override
-    public Account findById(Long id) throws UserExceptions {
-        if (userdao.findById(id) == null)
-            throw new UserExceptions("User with " + id + "not found",new Date());
-        else
-            return userdao.findById(id).get();
+    public User findByName(String name) {
+        return null;
     }
 
     @Override
-    public List<Account> findAccountsByRole(Role role) {
-        return userdao.findAllByRolesContains(role);
+    public User checkIfExist(String nom, String prenom, String tel) {
+        return userdao.findDistinctByNomAndPrenomAndTelephone(nom,prenom,tel);
     }
 
     @Override
-    public Page<Account> findAccountsByRole(Role role, Pageable pageable) {
-        return userdao.findAllByRolesContains(role,pageable);
-
+    public List<User> findAll() {
+        return null;
     }
 
-/*    @Override
-    public Account updateAccount(Account pAccount) throws UserExceptions {
-        Account account = userdao.findById(pAccount.getId()).get();
-        if (account == null)
-            throw new UserExceptions("User with username "+pAccount.getUsername()+"not found");
-        else {
-            account.setUsername(pAccount.getUsername());
-            account.setPassword(pAccount.getPassword());
-        }
-
-        return userdao.saveAndFlush(account);
-    }*/
-
-
-    @Override
-    public void deleteAccount(Account pAccount) {
-        userdao.delete(pAccount);
-    }
-
-    @Override
-    public Boolean existsByUsername(String username) {
-        return userdao.existsByUsername(username);
-    }
-
-    @Override
-    public List<Account> findAll() {
-        return userdao.findAll();
-    }
-
-    @Override
-    public List<Account> saveAll(List<Account> accounts) {
-        return userdao.saveAll(accounts);
-    }
-
-    @Override
-    public void deleteAll() {
-        userdao.deleteAll();
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return userdao.findByUsername(s);
-    }
 }
