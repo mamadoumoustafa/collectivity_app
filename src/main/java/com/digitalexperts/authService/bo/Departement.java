@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Getter
@@ -28,9 +28,9 @@ public class Departement {
 
     @JsonIgnore
     @OneToMany(mappedBy = "departement")
-    private Collection<Arrondissement> arrondissements;
+    private List<Arrondissement> arrondissements;
 
     @JsonIgnore
     @OneToMany(mappedBy = "departement")
-    private Collection<Commune> communes;
+    private List<Commune> communes;
 }

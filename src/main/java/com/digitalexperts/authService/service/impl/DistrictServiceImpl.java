@@ -25,22 +25,22 @@ public class DistrictServiceImpl implements DistrictService {
 
     @Override
     public Flux<District> findAllBy() {
-        return DistrictRepository.findAllBy();
+        return Flux.fromIterable( DistrictRepository.findAllBy());
     }
 
     @Override
     public Flux<District> findAllByDepartement_Id(Long id) {
-        return DistrictRepository.findAllByDepartement_Id(id);
+        return Flux.fromIterable( DistrictRepository.findAllByDepartement_Id(id));
     }
 
     @Override
     public Flux<District> findAllByDepartement_Region_Id(Long id) {
-        return DistrictRepository.findAllByDepartement_Region_Id(id);
+        return Flux.fromIterable( DistrictRepository.findAllByDepartement_Region_Id(id));
     }
 
     @Override
     public Flux<District> findAllByArrondissement_Id(Long id) {
-       return DistrictRepository.findAllByArrondissement_Id(id);
+       return Flux.fromIterable(DistrictRepository.findAllByArrondissement_Id(id));
     }
 
     @Override

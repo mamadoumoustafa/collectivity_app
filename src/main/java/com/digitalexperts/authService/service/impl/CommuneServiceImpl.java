@@ -2,10 +2,10 @@ package com.digitalexperts.authService.service.impl;
 
 
 import com.digitalexperts.authService.bo.Commune;
+import com.digitalexperts.authService.repository.CommuneRepository;
 import com.digitalexperts.authService.service.CommuneService;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,27 +22,27 @@ public class CommuneServiceImpl implements CommuneService {
 
     @Override
     public List<Commune> findAllBy() {
-        return communeRepository.findAll();
+        return (List<Commune>) communeRepository.findAll();
     }
 
     @Override
     public Flux<Commune> findAllByDepartement_Id(Long id) {
-        return communeRepository.findAllByDepartement_Id(id);
+        return Flux.fromIterable( communeRepository.findAllByDepartement_Id(id));
     }
 
     @Override
     public Flux<Commune> findAllByDepartement_Region_Id(Long id) {
-        return communeRepository.findAllByDepartement_Region_Id(id);
+        return Flux.fromIterable(communeRepository.findAllByDepartement_Region_Id(id));
     }
 
     @Override
     public Flux<Commune> findAllByArrondissement_Id(Long id) {
-        return communeRepository.findAllByArrondissement_Id(id);
+        return Flux.fromIterable( communeRepository.findAllByArrondissement_Id(id));
     }
 
     @Override
     public Flux<Commune> findAllByDistrict_Id(Long id) {
-        return communeRepository.findAllByDistrict_Id(id);
+        return Flux.fromIterable( communeRepository.findAllByDistrict_Id(id));
     }
 
     @Override
