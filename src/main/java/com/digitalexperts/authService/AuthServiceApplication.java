@@ -1,11 +1,14 @@
 package com.digitalexperts.authService;
 
-import com.digitalexperts.authService.bo.Account;
 import com.digitalexperts.authService.bo.Role;
+import com.digitalexperts.authService.controllers.AuthController;
 import com.digitalexperts.authService.repository.RoleRepository;
+import com.digitalexperts.authService.service.AccountService;
 import com.digitalexperts.authService.service.IRoleService;
 import com.digitalexperts.authService.service.UserService;
 import com.digitalexperts.authService.utils.RoleConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -32,6 +35,11 @@ public class AuthServiceApplication implements CommandLineRunner {
 	@Autowired
 	UserService userService;
 
+	@Autowired
+	AccountService accountService;
+
+	private final Logger log = LoggerFactory.getLogger(AuthController.class);
+
 
 
 	public static void main(String[] args) {
@@ -46,8 +54,8 @@ public class AuthServiceApplication implements CommandLineRunner {
 		r2.setNom(RoleConstants.ADMIN);
 
 		// A commenter apres le premier démarrage
-//		roleRepository.save(r1);
-//		roleRepository.save(r2);
+/*		roleRepository.save(r1);
+		roleRepository.save(r2);
 
 
 		Account account = new Account();
@@ -57,9 +65,9 @@ public class AuthServiceApplication implements CommandLineRunner {
 		account.setPassword(passwordEncoder().encode("123456"));
 		account.getRoles().add(roleService.findByName("Admin"));
 
-		//  log.info("saving ngor faye...");
-/*		if (Objects.isNull(userService.findByUsername("ngorfaye")))
-			userService.saveAccount(account);*/
+		  log.info("saving ngor faye...");
+		if (Objects.isNull(accountService.findByUsername("ngorfaye")))
+			accountService.save(account);*/
 
 
 	}

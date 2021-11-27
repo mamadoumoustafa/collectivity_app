@@ -1,11 +1,11 @@
 package com.digitalexperts.authService.controllers;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
-
 import com.digitalexperts.authService.bo.Account;
+import com.digitalexperts.authService.bo.Membre;
 import com.digitalexperts.authService.service.AccountService;
+import com.digitalexperts.authService.service.IRoleService;
+import com.digitalexperts.authService.service.MemberService;
+import com.digitalexperts.authService.service.UserService;
 import com.digitalexperts.authService.service.exceptions.UserExceptions;
 import com.digitalexperts.authService.utils.RoleConstants;
 import org.slf4j.Logger;
@@ -15,10 +15,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import com.digitalexperts.authService.bo.User;
-import com.digitalexperts.authService.service.UserService;
-
 import javax.validation.Valid;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("api/user/")
@@ -29,52 +29,62 @@ public class UserController {
 
 	private final AccountService accountService;
 
+	private final MemberService memberService;
+
 	private final BCryptPasswordEncoder passwordEncoder;
+	private final IRoleService roleService;
+
 
 	private final Logger log = LoggerFactory.getLogger(UserController.class);
 
 
-	public UserController(UserService userService, AccountService accountService, BCryptPasswordEncoder passwordEncoder) {
+	public UserController(UserService userService, AccountService accountService, MemberService memberService, BCryptPasswordEncoder passwordEncoder, IRoleService roleService) {
 		super();
 		this.userService = userService;
 		this.accountService = accountService;
+		this.memberService = memberService;
 		this.passwordEncoder = passwordEncoder;
+		this.roleService = roleService;
 	}
 	
-	@PostMapping("/adduser")
-	public ResponseEntity<User> toAddUser(@RequestBody @Valid User user) throws UserExceptions {
+	@PostMapping("/mew-member")
+	public ResponseEntity<Membre> addNewMember(@RequestBody @Valid Membre membre) throws UserExceptions {
 
-		log.info("request to add new user : {}",user);
-		if(Objects.isNull(user.getId()) && Objects.isNull(userService.checkIfExist(user.getNom()
-		,user.getPrenom(),user.getTelephone()))){
+		log.info("request to add new member : {}",membre);
 
-			//Enregistrer l'utilisateur
+		if(Objects.isNull(membre.getId()) && Objects.isNull(memberService.findIfExists(membre.getNom(),membre.getPrenom(),membre.getTelephone()))){
 
-			try {
-				user = userService.save(user);
-
-				//créer un compte
-
-				Account account = new Account();
-
-				account.setUsername(user.getTelephone());
-				account.setPassword(passwordEncoder.encode(user.getPassword()));
-				account.setEnabled(Boolean.TRUE);
-
-				accountService.save(account);
+			//créer un compte
 
 
+			Account account = new Account();
 
-			} catch (Exception e) {
-				log.warn("error while saving user");
+			account.setUsername(membre.getTelephone());
+			account.setPassword(passwordEncoder.encode(membre.getPassword()));
+			account.setEnabled(Boolean.TRUE);
+
+			account.getRoles().add(roleService.findByName("User"));
+
+				//Enregistrer l'utilisateur
+
+				try {
+
+					log.info("adding account : {}",account);
+					accountService.save(account);
+
+					log.info("saving member : {}",membre);
+					memberService.save(membre);
+
+				} catch (Exception e) {
+					log.warn("error while saving user");
+				}
+
+				return ResponseEntity.ok(membre);
+
 			}
+			else
+				throw new UserExceptions("Il ne s\'agit pas d\'un nouveau utilisateur.",new Date());
 
-			return ResponseEntity.ok(user);
-
-		}
-		//* return ResponseEntity.ok(userService.save(user));
-		else
-			throw new UserExceptions("Il ne s\'agit pas d\'un nouveau utilisateur.",new Date());
 	}
 
 
