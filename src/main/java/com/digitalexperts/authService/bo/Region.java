@@ -7,7 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Getter
@@ -27,5 +27,5 @@ public class Region {
 
     @JsonIgnore
     @OneToMany(mappedBy = "region")
-    private Collection<Departement> departements;
+    private List<Departement> departements;
 }

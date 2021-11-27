@@ -5,7 +5,6 @@ import com.digitalexperts.authService.repository.DepartementRepository;
 import com.digitalexperts.authService.service.DepartementService;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,7 +26,7 @@ public class DepartementServiceImpl implements DepartementService {
 
     @Override
     public Flux<Departement> findAllByRegion_Id(Long id) {
-        return departementRepository.findAllByRegion_Id(id);
+        return Flux.fromIterable(departementRepository.findAllByRegion_Id(id));
     }
 
     @Override

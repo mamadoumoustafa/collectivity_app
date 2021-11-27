@@ -2,9 +2,8 @@ package com.digitalexperts.authService.repository;
 
 import com.digitalexperts.authService.bo.District;
 import org.springframework.data.repository.CrudRepository;
-import reactor.core.publisher.Flux;
 
-import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Babacar FAYE (babacar.faye@mns-consulting.com)
@@ -12,12 +11,12 @@ import java.util.Collection;
  */
 public interface DistrictRepository extends CrudRepository<District, Long> {
 
-    Flux<District> findAllBy();
+    List<District> findAllBy();
 
-    Flux<District> findAllByDepartement_Id(Long id);
+    List<District> findAllByDepartement_Id(Long id);
 
-    Flux<District> findAllByDepartement_Region_Id(Long id);
+    List<District> findAllByDepartement_Region_Id(Long id);
 
-    Flux<District> findAllByArrondissement_Id(Long id);
+    List<District> findAllByArrondissement_Id(Long id);
 
 }

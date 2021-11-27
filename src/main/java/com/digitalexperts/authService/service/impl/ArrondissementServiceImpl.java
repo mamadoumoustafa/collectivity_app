@@ -25,11 +25,11 @@ public class ArrondissementServiceImpl implements ArrondissementService {
 
     @Override
     public Flux<Arrondissement> findAllByDepartement_Id(Long id) {
-        return arrondissementRepository.findAllByDepartement_Id(id);
+        return Flux.fromIterable(arrondissementRepository.findAllByDepartement_Id(id));
     }
 
     @Override
     public Flux<Arrondissement> findAllByDepartement_Region_Id(Long id) {
-        return arrondissementRepository.findAllByDepartement_Region_Id(id);
+        return Flux.fromIterable(arrondissementRepository.findAllByDepartement_Region_Id(id));
     }
 }

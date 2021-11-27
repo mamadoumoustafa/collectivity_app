@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Babacar FAYE (babacar.faye@mns-consulting.com)
@@ -38,5 +38,5 @@ public class District {
 
     @JsonIgnore
     @OneToMany(mappedBy = "district")
-    private Collection<Commune> communes;
+    private List<Commune> communes;
 }
