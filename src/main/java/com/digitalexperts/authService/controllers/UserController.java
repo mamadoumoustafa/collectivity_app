@@ -43,6 +43,7 @@ public class UserController {
 	
 	@PostMapping("/adduser")
 	public ResponseEntity<User> toAddUser(@RequestBody @Valid User user) throws UserExceptions {
+
 		log.info("request to add new user : {}",user);
 		if(Objects.isNull(user.getId()) && Objects.isNull(userService.checkIfExist(user.getNom()
 		,user.getPrenom(),user.getTelephone()))){
